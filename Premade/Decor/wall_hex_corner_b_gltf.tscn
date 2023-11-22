@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://6nakk28dleoi"]
+
+[ext_resource type="PackedScene" uid="uid://p18sgvuwytp7" path="res://Models/Objects/wall_hexCornerB.gltf.glb" id="1_ks6a0"]
+
+[node name="wall_hexCornerB_gltf" instance=ExtResource("1_ks6a0")]

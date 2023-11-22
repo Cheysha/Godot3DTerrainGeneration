@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://besbj4fjcxx4s"]
+
+[ext_resource type="PackedScene" uid="uid://chqqesmp0cat" path="res://Models/Objects/detail_rocks.gltf.glb" id="1_et3wj"]
+
+[node name="detail_rocks_gltf" instance=ExtResource("1_et3wj")]

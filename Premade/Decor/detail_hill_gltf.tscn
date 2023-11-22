@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvwnrsbkphcin"]
+
+[ext_resource type="PackedScene" uid="uid://cnvmmioajw2jl" path="res://Models/Objects/detail_hill.gltf.glb" id="1_yx61n"]
+
+[node name="detail_hill_gltf" instance=ExtResource("1_yx61n")]

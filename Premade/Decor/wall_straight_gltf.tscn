@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2p1etdy1xiyb"]
+
+[ext_resource type="PackedScene" uid="uid://cog5157fhpokh" path="res://Models/Objects/wall_straight.gltf.glb" id="1_fuqoh"]
+
+[node name="wall_straight_gltf" instance=ExtResource("1_fuqoh")]

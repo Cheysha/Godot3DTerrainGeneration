@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgtpwpnfl7vv7"]
+
+[ext_resource type="Script" path="res://Scripts/scene_control.gd" id="1_uqwv1"]
+[ext_resource type="PackedScene" uid="uid://dwp6ncjd21ad6" path="res://Premade/Characters/3d_godot_robot.tscn" id="2_cbh4q"]
+[ext_resource type="PackedScene" uid="uid://bmavqidovpmqg" path="res://Premade/Maps/MapNode.tscn" id="4_3k8j2"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="4_vdxii"]
+[ext_resource type="PackedScene" uid="uid://bkillxvq0sq56" path="res://Premade/Decor/house.tscn" id="5_7foex"]
+[ext_resource type="PackedScene" uid="uid://by07q0xnx8l2i" path="res://Premade/Decor/forest.tscn" id="6_pjs4u"]
+[ext_resource type="PackedScene" uid="uid://ch7nvy3sj2j8q" path="res://Premade/Decor/stair_single.tscn" id="8_243si"]
+[ext_resource type="PackedScene" uid="uid://ct6hvevbabdu1" path="res://Premade/Decor/stair_double.tscn" id="9_qhpwv"]
+[ext_resource type="PackedScene" uid="uid://c2jkld3kwns4k" path="res://Models/Tiles/hex_forest_waterD_empty.gltf.glb" id="10_jsfrk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k47rc"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_gt2cq"]
+sky_material = SubResource("ProceduralSkyMaterial_k47rc")
+
+[sub_resource type="Environment" id="Environment_on07a"]
+background_mode = 2
+sky = SubResource("Sky_gt2cq")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Player_Testing" type="Node3D"]
+script = ExtResource("1_uqwv1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_on07a")
+
+[node name="3DGodotRobot" parent="." instance=ExtResource("2_cbh4q")]
+transform = Transform3D(0.16, 0, 0, 0, 0.16, 0, 0, 0, 0.16, 12.8989, 4.01204, 6.83117)
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(-1, 6.61786e-08, -5.71238e-08, 0, 0.65342, 0.756995, 8.74228e-08, 0.756995, -0.65342, 12.8989, 6.32704, 4.59117)
+script = ExtResource("4_vdxii")
+priority_override = false
+priority = 0
+follow_mode = 2
+follow_target = NodePath("../3DGodotRobot")
+follow_parameters/target_offset = Vector3(0, 2.315, -2.24)
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+look_at_mode = 0
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+camera_3D_resource = null
+
+[node name="MapNode" parent="." instance=ExtResource("4_3k8j2")]
+script = null
+
+[node name="house_gltf" parent="." instance=ExtResource("5_7foex")]
+transform = Transform3D(-0.999846, 0, 0.0175745, 0, 1, 0, -0.0175745, 0, -0.999846, 11.9846, 4.0199, 8.86293)
+
+[node name="forest_gltf" parent="." instance=ExtResource("6_pjs4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0467, 4, 8.75458)
+
+[node name="hex_forest_waterD_empty_gltf" parent="." instance=ExtResource("10_jsfrk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5501, 3, 1.25774)
+
+[node name="stair_single" parent="." instance=ExtResource("8_243si")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.90527, 3.93162, 8.75761)
+
+[node name="stair_double" parent="." instance=ExtResource("9_qhpwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9966, 3.00468, 5.23916)

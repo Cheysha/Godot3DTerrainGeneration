@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3 uid="uid://bas1inrf50n3m"]
+
+[ext_resource type="Script" path="res://Scripts/scene_control.gd" id="1_tjue8"]
+[ext_resource type="Script" path="res://Scripts/MapGen.gd" id="2_s2ske"]
+[ext_resource type="FastNoiseLite" uid="uid://dvnyoqhljrioa" path="res://NoiseMaps/terrain_map.tres" id="3_eycu2"]
+[ext_resource type="Script" path="res://Scripts/simple_camera.gd" id="3_woqw5"]
+[ext_resource type="FastNoiseLite" uid="uid://tgokbdg08nag" path="res://NoiseMaps/moisture_map.tres" id="4_kqlhb"]
+[ext_resource type="FastNoiseLite" uid="uid://dhqx26cjeeci8" path="res://NoiseMaps/high_freq_map.tres" id="5_f10na"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_25aw5"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_udoda"]
+sky_material = SubResource("ProceduralSkyMaterial_25aw5")
+
+[sub_resource type="Environment" id="Environment_ervwh"]
+background_mode = 2
+sky = SubResource("Sky_udoda")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="SceneNode" type="Node3D"]
+script = ExtResource("1_tjue8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ervwh")
+
+[node name="MapNode" type="Node3D" parent="." node_paths=PackedStringArray("ownr")]
+script = ExtResource("2_s2ske")
+noise = ExtResource("3_eycu2")
+moisture_map = ExtResource("4_kqlhb")
+high_freq_map = ExtResource("5_f10na")
+ownr = NodePath(".")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.82713, 0, -0.562011, 0, 1, 0, 0.562011, 0, -0.82713, 0, 16.8915, 0)
+script = ExtResource("3_woqw5")

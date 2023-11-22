@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://o5xem1xm4q3t"]
+
+[ext_resource type="PackedScene" uid="uid://53qslx24w0ob" path="res://Models/Objects/detail_forestA.gltf.glb" id="1_vjjr1"]
+
+[node name="detail_forestA_gltf" instance=ExtResource("1_vjjr1")]
