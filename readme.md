@@ -11,23 +11,22 @@ the height levels are than quanitized and assignes properties based of the quani
 <img src="https://github.com/Cheysha/3dgodotProj/blob/main/doc/lg.png" width="250" height="250">
 
 for example, we can make another noise map of identacle size and use the values of that map to place things like houses / trees / rocks. due to the way these items are distibuted, the detail map should be high frequency
-<img original>
+<img src="https://github.com/Cheysha/Godot3DTerrainGeneration/blob/main/doc/original.png" width = 250>
 
 OR, you could you a low frequency map to place a biome and place detail based on biome AND height conditions
-<img forest_biome>
+<img src="https://github.com/Cheysha/Godot3DTerrainGeneration/blob/main/doc/forest_biome.png" width = 250>
 
 a cool thing from zelda games i likes were the walls on ledges. we can generate walls. By thesting the neighbors of the hexagon and seeing how many are on a lower quanitized_height level, we can see where we need to generate walls; side note, it is easier to use a cubed coordinate system for this. q, r, s
-<img walls> 
+<img src="https://github.com/Cheysha/Godot3DTerrainGeneration/blob/main/doc/walls.png" width = 250> 
 
 there are more details into making things look more map like, but its a good start,
 
 now if things are going to be gamey, wee need a sense of scale, kinda liked this,but it didnt really work, 
-<img scale>
+<img src="https://github.com/Cheysha/Godot3DTerrainGeneration/blob/main/doc/scale.png" width = 250> 
 
 jumping foward, this is the scale i decided i liked, different hight levels have different offsets to make them look more natural, eg: beach clcose to water;
-<img height>
-
+<img src="https://github.com/Cheysha/Godot3DTerrainGeneration/blob/main/doc/height.png" width = 250> 
 
 side note, the stair algorithim i worth mentioning, every continous cluster on cells on the same hight will need a staircase leading down to the lower level (with execptions). so select a random tile on the edge and make it a staircase, there are 2 different types of stairs, depending on how many faces are touching tiles of the same height.  
-<img mockup>
+<img src="https://github.com/Cheysha/Godot3DTerrainGeneration/blob/main/doc/mockup.png" width = 250> 
 
