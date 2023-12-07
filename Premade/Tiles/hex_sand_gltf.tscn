@@ -23,7 +23,6 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_eskuq"]
-resource_local_to_scene = true
 resource_name = "hex_sand_gltf_Cylinder_1030"
 _surfaces = [{
 "aabb": AABB(-1, 0, -1.1547, 2.00001, 1, 2.3094),
@@ -42,7 +41,6 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_cdl7p")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b5foa"]
-resource_local_to_scene = true
 points = PackedVector3Array(1, 0.94998, 0.57735, -0.000195742, 0.974941, 1.14679, -0.000195742, 0.94998, 1.1547, 1, 0, 0.57735, 1, 0.94998, -0.57735, 0.993148, 0.974941, 0.573281, 0.974941, 0.993246, 0.562882, -0.000195742, 0.993246, 1.12576, -0.975137, 0.993246, 0.562882, -0.993344, 0.974941, 0.573281, -0.000195742, 0, 1.1547, -1, 0.94998, 0.577124, 1, 0, -0.57735, 0, 0.94998, -1.1547, 0, 0.974941, -1.14701, 0.993148, 0.974941, -0.573507, 0.974941, 0.993246, -0.563108, 0.949883, 1, 0.548415, -0.000195742, 1, 1.09683, -0.950078, 1, 0.548415, -0.975137, 0.993246, -0.563108, -0.993344, 0.974941, -0.573507, -1, 0, 0.577124, -1, 0.94998, -0.57735, 0, 0, -1.1547, 0, 0.993246, -1.12599, 0.949883, 1, -0.548641, -0.950078, 1, -0.548641, -1, 0, -0.57735, 0, 1, -1.09706)
 
 [node name="hex_sand_gltf" type="StaticBody3D"]
@@ -52,5 +50,5 @@ script = ExtResource("1_06n2g")
 mesh = SubResource("ArrayMesh_eskuq")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_b5foa")

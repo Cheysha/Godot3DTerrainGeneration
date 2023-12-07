@@ -26,12 +26,11 @@ script = ExtResource("1_tjue8")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ervwh")
 
-[node name="MapNode" type="Node3D" parent="." node_paths=PackedStringArray("ownr")]
+[node name="MapNode" type="Node3D" parent="."]
 script = ExtResource("2_s2ske")
 noise = ExtResource("3_eycu2")
 moisture_map = ExtResource("4_kqlhb")
 high_freq_map = ExtResource("5_f10na")
-ownr = NodePath(".")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.82713, 0, -0.562011, 0, 1, 0, 0.562011, 0, -0.82713, 0, 16.8915, 0)

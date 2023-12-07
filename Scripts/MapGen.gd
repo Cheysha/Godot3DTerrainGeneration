@@ -1,11 +1,10 @@
 extends Node3D
 
 @export var Width = 25
-@export var Height = 25
+@export var Height = 20
 @export var noise : FastNoiseLite#= FastNoiseLite.new()
 @export var moisture_map : FastNoiseLite
 @export var high_freq_map : FastNoiseLite
-@export var ownr : Node3D
 
 var map_data : Dictionary
 var cube_direction_vectors = [
@@ -29,6 +28,8 @@ func generate_map():
 	var rock_tile = preload("res://Premade/Tiles/hex_rock_gltf.tscn")
 	#var shape = preload("res://Premade/Tiles/comps/collision_shape_3d.tscn")
 	var rand = randi_range(0, 1000)
+	var total_steps = 4
+	var tile_total_counts = {"water":0,"sand":0,"grass":0,"rock":0} 
 
 	# Random Offsets
 	#noise.offset = Vector3(rand, rand, rand)
@@ -41,7 +42,7 @@ func generate_map():
 			var noise_value = image.get_pixel(x, y).v
 			noise_value *= .8 # too many mountains by default
 			var moisture_value = moisture_image.get_pixel(x, y).v
-			var quanitized_noise = quantize_noise(noise_value)
+			var quanitized_noise = quantize_noise(noise_value, total_steps)
 			var random_offset = randf_range(0.15, 0.23)
 			var height_margin = random_offset * quanitized_noise
 			var tile_scene : PackedScene
@@ -50,30 +51,27 @@ func generate_map():
 
 			# Check the value of q and instantiate the appropriate tile
 			if quanitized_noise <= 0:
-				#tile_scene = preload("res://Premade/Tiles/comps/hex_water.tscn")
 				tile_scene = water_tile
-				#quanitized_noise = 2
 				height_zone = 1
 				height_margin = 0
+				tile_total_counts["water"] += 1
 			elif quanitized_noise <= 1:
-				#tile_scene = preload("res://Premade/Tiles/comps/hex_sand.tscn")
 				tile_scene = sand_tile
 				height_zone = 2
+				tile_total_counts["sand"] +=1
 			elif quanitized_noise <= 2:
-				#tile_scene = preload("res://Premade/Tiles/comps/hex_forest.tscn")
 				tile_scene = grass_tile
 				height_zone = 3
 				if moisture_value <= .5:
 					biome = "Forest"
+				tile_total_counts["grass"] +=1
 			else:
-				#tile_scene = preload("res://Premade/Tiles/comps/hex_rock.tscn")
 				tile_scene = rock_tile
 				height_zone = 4
+				tile_total_counts["rock"] +=1
 			
 			# get tile instance ready	
 			var instantiated_tile :StaticBody3D  = tile_scene.instantiate()
-			set_editable_instance(instantiated_tile,true)
-			
 			instantiated_tile.height_level = quanitized_noise
 			instantiated_tile.height_zone = height_zone
 			instantiated_tile.Biome = biome
@@ -85,23 +83,15 @@ func generate_map():
 			if height_zone == 3: 
 				smoothing_factor = smoothing_factor * .8 
 			if height_zone == 4:
-				smoothing_factor = smoothing_factor * 1.03 
+				smoothing_factor = smoothing_factor * 2 
 				
-			# place tile in correct place
+			# translate the tile, scale the mesh, and generate a new shape from the scaled mesh, dont scale collider unevenly
 			var translation = Vector3(x * 2, 0, y * 1.74) #1.74 is the spacing for hexagons to lineup, need func
-			if y % 2 == 0: # Hexagon row offset	
+			if y % 2 == 0: 
 				translation.x += 1 # half of tile size
 			instantiated_tile.translate(translation)
-
-			# scale all children, do not scale the parent
-			var children = instantiated_tile.get_children()
-			for child in children:
-				var c := child as Node3D
-				c.set_scale(Vector3(1,
-				quanitized_noise * smoothing_factor + 1 ,
-				 1))
-				#child.owner = owner.owner
-			
+			instantiated_tile.get_child(0).set_scale(Vector3(1, quanitized_noise * smoothing_factor + 1 , 1))
+			instantiated_tile.get_child(1).set_scale(Vector3(1, quanitized_noise * smoothing_factor + 1 , 1)) # shopuld scale a collider, 
 
 			# POS in our map
 			var q = x - (y + (y % 2)) / 2
@@ -112,6 +102,13 @@ func generate_map():
 			map_data[pos] = instantiated_tile 
 
 			add_child(instantiated_tile)
+			set_editable_instance(instantiated_tile,true)
+
+	# Print out the tile counts
+	print("--------------------------------------")
+
+	print(tile_total_counts)
+
 	
 	# Post processing
 	#add_forest()
